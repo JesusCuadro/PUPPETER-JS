@@ -33,12 +33,7 @@ describe('Interactuando con elementos', () => {
             }
         }, selector)
 
-        await typeText(
-            page,
-            '#comments',
-            '"Lorem ipsum"',
-            { delay: 100 }
-        )
+        await typeText(page, '#comments', '"Lorem ipsum"', { delay: 100 })
 
         await click(page, '#submit-button')
 
@@ -53,6 +48,5 @@ describe('Interactuando con elementos', () => {
         // await doubleClick(page, '#authentication > button')
 
         await browser.close()
-        
     }, 3500000)
 })

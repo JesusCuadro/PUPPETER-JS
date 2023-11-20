@@ -2,7 +2,6 @@ const puppeteer = require('puppeteer')
 const { getText, getCount } = require('../lib/helpers')
 
 describe('Extrayendo informacion', () => {
-
     let browser
     let page
 
@@ -50,32 +49,28 @@ describe('Extrayendo informacion', () => {
 
         // Con css selectors
 
-        await page.waitForSelector(
-            '#main-form > div > header > p'
-        )
+        await page.waitForSelector('#main-form > div > header > p')
 
         //Corre un document query selector
 
-        const subTituloPagina = await getText(page, '#main-form > div > header > p')
+        const subTituloPagina = await getText(
+            page,
+            '#main-form > div > header > p'
+        )
 
         console.log('SubTitulo de la pagina: ', subTituloPagina)
-
     }, 350000)
 
     // jest.setTimeout(10000)
 
     it('Contar los elementos de una pagina', async () => {
-
-        await page.goto('https://geopolimerossas.com/',{
+        await page.goto('https://geopolimerossas.com/', {
             waitUntil: 'networkidle0',
         })
 
-        await page.waitForSelector(
-            'img'
-        )
+        await page.waitForSelector('img')
 
         const imagenes = await getCount(page, 'img')
         console.log('Estas son las imagenes que hay: ', imagenes)
-
     }, 350000)
 })
