@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer')
 const { getText, getCount } = require('../lib/helpers')
 
 describe('Extrayendo informacion', () => {
+
     let browser
     let page
 
@@ -20,7 +21,7 @@ describe('Extrayendo informacion', () => {
 
     beforeAll(async () => {
         browser = await puppeteer.launch({
-            headless: false,
+            headless: 'new',
             defaultViewport: null,
         })
 
@@ -50,28 +51,31 @@ describe('Extrayendo informacion', () => {
         // Con css selectors
 
         await page.waitForSelector(
-            '#main-form > div > div.form-bottom > fieldset:nth-child(2) > legend'
+            '#main-form > div > header > p'
         )
 
         //Corre un document query selector
 
-        const nombreLeyenda = await getText(page, '#main-form > div > div.form-bottom > fieldset:nth-child(2) > legend')
-        console.log('Leyenda: ', nombreLeyenda)
+        const subTituloPagina = await getText(page, '#main-form > div > header > p')
+
+        console.log('SubTitulo de la pagina: ', subTituloPagina)
+
     }, 350000)
 
     // jest.setTimeout(10000)
 
-    // it('Contar los elementos de una pagina', async () => {
-    //     page.setDefaultTimeout(10000)
-    //     page.setDefaultNavigationTimeout(10000)
+    it('Contar los elementos de una pagina', async () => {
 
-    //     await page.goto('https://amazon.com/', {
-    //         waitUntil: 'networkidle0',
-    //     })
+        await page.goto('https://geopolimerossas.com/',{
+            waitUntil: 'networkidle0',
+        })
 
-    //     //Corre un document query selector all
+        await page.waitForSelector(
+            'img'
+        )
 
-    //     const imagenes = await page.$$eval('img', (imagenes) => imagenes.length)
-    //     console.log('Estas son las imagenes que hayz: ', imagenes)
-    // }, 350000)
+        const imagenes = await getCount(page, 'img')
+        console.log('Estas son las imagenes que hay: ', imagenes)
+
+    }, 350000)
 })
